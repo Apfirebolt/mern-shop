@@ -73,7 +73,7 @@ const AdminUpdateProduct = ({ match, history }) => {
 
       const { data } = await axios.post("/api/upload", formData, config);
 
-      setImage(data);
+      setImage(data.replace('/uploads\\', ''));
       setUploading(false);
     } catch (error) {
       console.error(error);
