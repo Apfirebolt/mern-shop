@@ -38,7 +38,7 @@ const RegisterScreen = ({ location, history }) => {
 
   return (
     <FormContainer>
-      <h1 class="text-center">Sign Up</h1>
+      <h1 className="text-center">Sign Up</h1>
       {message && <Message variant='danger'>{message}</Message>}
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
@@ -83,7 +83,7 @@ const RegisterScreen = ({ location, history }) => {
           ></Form.Control>
         </Form.Group>
 
-        <div class="d-flex justify-content-center my-2">
+        <div className="d-flex justify-content-center my-2">
           <Button type='submit' variant='primary'>
             Register
           </Button>
