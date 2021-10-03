@@ -14,6 +14,9 @@ import ProductListPage from './pages/AdminListProduct'
 import ProductCreatePage from './pages/AdminAddProduct'
 import ProductEditPage from './pages/AdminUpdateProduct'
 import ProductDetailPage from './pages/ProductDetail'
+import ProfilePage from './pages/ProfilePage'
+import AddUserAddressPage from './pages/AddUserAddress'
+import ListUserAddressPage from './pages/ListUserAddress'
 
 const App = () => {
   return (
@@ -31,6 +34,9 @@ const App = () => {
           <Route path='/admin/products/add' component={ProductCreatePage} exact />
           <Route path='/admin/products/:id/edit' component={ProductEditPage} exact />
           <Route path='/products/:id' component={ProductDetailPage} exact />
+          <Route path='/profile' component={ProfilePage} exact />
+          <Route path='/profile/address' component={ListUserAddressPage} exact />
+          <Route path='/profile/address/add' component={AddUserAddressPage} exact />
           <Route path='/test' component={TestPage} />
         </Container>
       </main>

@@ -68,6 +68,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      addresses: user.userAddress,
       isAdmin: user.isAdmin,
     })
   } else {
@@ -166,6 +167,33 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Add User Address
+// @route   PUT /api/users/:id/address
+// @access  Private
+const addAddress = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+
+  if (user) {
+    const address = {
+      address_line_one: req.body.address_line_one,
+      address_line_two: req.body.address_line_two,
+      landmark: req.body.landmark || null,
+      area: req.body.area,
+      city: req.body.city,
+      postalCode: req.body.postalCode,
+      country: req.body.country
+    }
+  
+    user.userAddress.push(address)
+  
+    await user.save()
+    res.status(201).json({ message: 'Address added' })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
+
 export {
   authUser,
   registerUser,
@@ -175,4 +203,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  addAddress,
 }

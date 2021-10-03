@@ -22,7 +22,7 @@ const AdminListUser = ({ history }) => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers())
     } else {
-      history.push('/login')
+      history.push('/')
     }
   }, [dispatch, history, successDelete, userInfo])
   

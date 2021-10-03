@@ -24,8 +24,14 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_REQUEST,
+  GET_PROFILE_REQUEST,
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAIL,
   ADMIN_ADD_USER_SUCCESS,
-  ADMIN_ADD_USER_FAIL
+  ADMIN_ADD_USER_FAIL,
+  ADDRESS_CREATE_REQUEST,
+  ADDRESS_CREATE_SUCCESS,
+  ADDRESS_CREATE_FAIL
 } from '../constants/userConstants'
 
 axios.defaults.baseURL = 'http://localhost:5000';
@@ -332,6 +338,81 @@ export const updateUser = (user) => async (dispatch, getState) => {
     dispatch({
       type: USER_UPDATE_FAIL,
       payload: message,
+    })
+  }
+}
+
+export const getProfileDetails = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: GET_PROFILE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get('/api/users/profile', config)
+
+    dispatch({
+      type: GET_PROFILE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: GET_PROFILE_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const addAddress = (payload) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ADDRESS_CREATE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.post(
+      `/api/users/${userInfo._id}/address`,
+      payload,
+      config
+    )
+
+    dispatch({
+      type: ADDRESS_CREATE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: ADDRESS_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     })
   }
 }
