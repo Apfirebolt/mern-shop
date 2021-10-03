@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
 const SearchBox = ({ history }) => {
@@ -13,6 +13,12 @@ const SearchBox = ({ history }) => {
     }
   }
 
+  useEffect(() => {
+    if (!keyword.length) {
+      history.push('/')
+    }
+  }, [keyword, history])
+
   return (
     <Form onSubmit={submitHandler} className="d-flex">
       <Form.Control
@@ -23,7 +29,7 @@ const SearchBox = ({ history }) => {
         className='mr-sm-2 ml-sm-5 p-2 m-2'
       ></Form.Control>
       <Button type='submit' variant='outline-success' className='p-2 m-2'>
-        Search
+        Search {keyword}
       </Button>
     </Form>
   )
