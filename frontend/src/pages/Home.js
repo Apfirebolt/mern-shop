@@ -23,7 +23,7 @@ const HomePage = ({ match }) => {
 
   return (
     <>
-      <h1>Latest Products</h1>
+      <h1>Latest Products { keyword }</h1>
       {loading ? (
         <Loader />
       ) : error ? (
