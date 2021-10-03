@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Table, Button, Container } from "react-bootstrap";
+import { Table, Button, Alert } from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getProfileDetails } from "../actions/userActions";
@@ -33,6 +33,15 @@ const ProfilePage = ({ history }) => {
               </Button>
             </LinkContainer>
           </div>
+          {profile.addresses && profile.addresses.length === 0 ? (
+            <Alert variant="info">
+            <Alert.Heading>No Addresses Found</Alert.Heading>
+            <p>
+              Start by adding a new shipping to your profile 
+            </p>
+            <hr />
+          </Alert>
+          ) : 
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
@@ -57,7 +66,7 @@ const ProfilePage = ({ history }) => {
                   </tr>
                 ))}
             </tbody>
-          </Table>
+          </Table>}
         </Fragment>
       )}
     </>

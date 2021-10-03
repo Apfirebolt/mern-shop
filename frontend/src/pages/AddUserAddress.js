@@ -22,7 +22,7 @@ const AddUserAddressPage = ({ history }) => {
 
   useEffect(() => {
     if (success) {
-      history.push("/profile/address");
+      history.push("/profile");
     }
   }, [dispatch, history, success]);
 
