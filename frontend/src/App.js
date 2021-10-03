@@ -13,6 +13,7 @@ import UserEditPage from './pages/AdminUpdateUser'
 import ProductListPage from './pages/AdminListProduct'
 import ProductCreatePage from './pages/AdminAddProduct'
 import ProductEditPage from './pages/AdminUpdateProduct'
+import ProductDetailPage from './pages/ProductDetail'
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path='/admin/products' component={ProductListPage} exact />
           <Route path='/admin/products/add' component={ProductCreatePage} exact />
           <Route path='/admin/products/:id/edit' component={ProductEditPage} exact />
+          <Route path='/products/:id' component={ProductDetailPage} exact />
           <Route path='/test' component={TestPage} />
         </Container>
       </main>
