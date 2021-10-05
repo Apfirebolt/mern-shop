@@ -30,7 +30,9 @@ import {
   GET_PROFILE_FAIL,
   ADMIN_ADD_USER_SUCCESS,
   ADMIN_ADD_USER_FAIL,
-  GET_PROFILE_RESET
+  ADDRESS_CREATE_REQUEST,
+  ADDRESS_CREATE_SUCCESS,
+  ADDRESS_CREATE_FAIL,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -156,8 +158,21 @@ export const userProfileReducer = (state = { profile: {} }, action) => {
     case GET_PROFILE_REQUEST:
       return { loading: true }
     case GET_PROFILE_SUCCESS:
-      return { loading: false, success: true, profile: action.payload }
-    case GET_PROFILE_RESET:
+      return { loading: false, profile: action.payload }
+    case GET_PROFILE_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const userAddAddressReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADDRESS_CREATE_REQUEST:
+      return { loading: true }
+    case ADDRESS_CREATE_SUCCESS:
+      return { loading: false, success: true, address: action.payload }
+    case ADDRESS_CREATE_FAIL:
       return { loading: false, error: action.payload }
     default:
       return state

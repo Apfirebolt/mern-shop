@@ -16,6 +16,7 @@ import ProductListPage from './pages/AdminListProduct'
 import ProductCreatePage from './pages/AdminAddProduct'
 import ProductEditPage from './pages/AdminUpdateProduct'
 import ProductDetailPage from './pages/ProductDetail'
+import AddUserAddressPage from './pages/AddUserAddress'
 
 const App = () => {
   return (
@@ -23,8 +24,8 @@ const App = () => {
       <Header />
       <main className='py-3'>
         <Container>
-          <Route path='/' component={TestPage} exact />
-          <Route path='/sample' component={SamplePage} exact />
+          <Route path='/' component={HomePage} exact />
+          <Route path='/sample' component={SamplePage} />
           <Route path='/profile' component={ProfilePage} />
           <Route path='/search/:keyword' component={HomePage} />
           <Route path='/login' component={LoginPage} />
@@ -35,7 +36,11 @@ const App = () => {
           <Route path='/admin/products' component={ProductListPage} />
           <Route path='/admin/products/add' component={ProductCreatePage} />
           <Route path='/admin/products/:id/edit' component={ProductEditPage} />
-          <Route path='/products/:id' component={ProductDetailPage} />  
+          <Route path='/products/:id' component={ProductDetailPage} />
+          <Route path='/profile' component={ProfilePage} />
+          <Route path='/profile/address/add' component={AddUserAddressPage} />
+          <Route path='/search/:keyword' component={HomePage} exact />
+          <Route path='/test' component={TestPage} />
         </Container>
       </main>
       <Footer />

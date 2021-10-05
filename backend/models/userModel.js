@@ -25,6 +25,21 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    profilePicture: {
+      type: String,
+      required: false,
+    },
+    userAddress: [
+      {
+        address_line_one: { type: String, required: true },
+        address_line_two: { type: String, required: true },
+        landmark: { type: String, required: false },
+        area: { type: String, required: true },
+        city: { type: String, required: true },
+        postalCode: { type: String, required: true },
+        country: { type: String, required: true },
+      },
+    ]
   },
   {
     timestamps: true,
