@@ -7,8 +7,6 @@ import HomePage from './pages/Home'
 import LoginPage from './pages/Login'
 import RegisterPage from './pages/Register'
 import TestPage from './pages/Test'
-import SamplePage from './pages/Sample'
-import ProfilePage from './pages/Profile'
 import UserListPage from './pages/AdminListUser'
 import UserCreatePage from './pages/AdminAddUser'
 import UserEditPage from './pages/AdminUpdateUser'
@@ -16,6 +14,7 @@ import ProductListPage from './pages/AdminListProduct'
 import ProductCreatePage from './pages/AdminAddProduct'
 import ProductEditPage from './pages/AdminUpdateProduct'
 import ProductDetailPage from './pages/ProductDetail'
+import ProfilePage from './pages/ProfilePage'
 import AddUserAddressPage from './pages/AddUserAddress'
 
 const App = () => {
@@ -25,21 +24,24 @@ const App = () => {
       <main className='py-3'>
         <Container>
           <Route path='/' component={HomePage} exact />
-          <Route path='/sample' component={SamplePage} />
-          <Route path='/profile' component={ProfilePage} />
-          <Route path='/search/:keyword' component={HomePage} />
           <Route path='/login' component={LoginPage} />
           <Route path='/register' component={RegisterPage} />
-          <Route path='/admin/users' component={UserListPage} />
-          <Route path='/admin/users/add' component={UserCreatePage} />
-          <Route path='/admin/user/:id/edit' component={UserEditPage} />
-          <Route path='/admin/products' component={ProductListPage} />
-          <Route path='/admin/products/add' component={ProductCreatePage} />
-          <Route path='/admin/products/:id/edit' component={ProductEditPage} />
-          <Route path='/products/:id' component={ProductDetailPage} />
-          <Route path='/profile' component={ProfilePage} />
-          <Route path='/profile/address/add' component={AddUserAddressPage} />
+          <Route path='/admin/users' component={UserListPage} exact />
+          <Route path='/admin/users/add' component={UserCreatePage} exact />
+          <Route path='/admin/user/:id/edit' component={UserEditPage} exact />
+          <Route path='/admin/products' component={ProductListPage} exact />
+          <Route path='/admin/products/add' component={ProductCreatePage} exact />
+          <Route path='/admin/products/:id/edit' component={ProductEditPage} exact />
+          <Route path='/products/:id' component={ProductDetailPage} exact />
+          <Route path='/profile' component={ProfilePage} exact />
+          <Route path='/profile/address/add' component={AddUserAddressPage} exact />
           <Route path='/search/:keyword' component={HomePage} exact />
+          <Route path='/page/:pageNumber' component={HomePage} exact />
+          <Route
+            path='/search/:keyword/page/:pageNumber'
+            component={HomePage}
+            exact
+          />
           <Route path='/test' component={TestPage} />
         </Container>
       </main>
