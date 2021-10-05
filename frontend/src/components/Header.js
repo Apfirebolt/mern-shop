@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Route } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
+import SearchBox from './SearchBox'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { logout } from '../actions/userActions'
 
@@ -16,10 +18,10 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect className="d-flex justify-content-between">
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand>MERN Shopper</Navbar.Brand>
+            <Navbar.Brand>Mern Shopper</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
@@ -52,6 +54,9 @@ const Header = () => {
               )}
             </Nav>
           </Navbar.Collapse>
+        </Container>
+        <Container className="d-flex justify-content-center">
+          <Route render={({ history }) => <SearchBox history={history} />} />
         </Container>
       </Navbar>
     </header>
