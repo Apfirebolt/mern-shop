@@ -7,6 +7,7 @@ import HomePage from './pages/Home'
 import LoginPage from './pages/Login'
 import RegisterPage from './pages/Register'
 import TestPage from './pages/Test'
+import CartPage from './pages/Cart'
 import UserListPage from './pages/AdminListUser'
 import UserCreatePage from './pages/AdminAddUser'
 import UserEditPage from './pages/AdminUpdateUser'
@@ -34,6 +35,7 @@ const App = () => {
           <Route path='/admin/products/:id/edit' component={ProductEditPage} exact />
           <Route path='/products/:id' component={ProductDetailPage} exact />
           <Route path='/profile' component={ProfilePage} exact />
+          <Route path='/cart/:id?' component={CartPage} exact />
           <Route path='/profile/address/add' component={AddUserAddressPage} exact />
           <Route path='/search/:keyword' component={HomePage} exact />
           <Route path='/page/:pageNumber' component={HomePage} exact />

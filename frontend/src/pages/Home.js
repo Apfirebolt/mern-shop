@@ -24,7 +24,6 @@ const HomePage = ({ match }) => {
   return (
     <>
       <h1>Latest Products</h1>
-      <p>Some lorem text</p>
       {loading ? (
         <Loader />
       ) : error ? (
