@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import rateLimit from 'express-rate-limit'
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 
@@ -38,4 +39,11 @@ const admin = (req, res, next) => {
   }
 }
 
-export { protect, admin }
+const limiter = rateLimit({
+  windowMs: 15 * 1000, // 15 seconds
+  max: 5, // limit each IP to 100 requests per windowMs
+  message:
+    "Too many accounts created from this IP, please try again after an hour"
+});
+
+export { protect, admin, limiter }

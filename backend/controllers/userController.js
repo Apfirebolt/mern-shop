@@ -70,6 +70,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       email: user.email,
       addresses: user.userAddress,
       isAdmin: user.isAdmin,
+      domain: user.domain
     })
   } else {
     res.status(404)

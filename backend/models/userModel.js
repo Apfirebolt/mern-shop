@@ -59,6 +59,11 @@ userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, salt)
 })
 
+// Create a virtual property `domain` that's computed from `email`.
+userSchema.virtual('domain').get(function() {
+  return this.email.slice(this.email.indexOf('@') + 1);
+});
+
 const User = mongoose.model('User', userSchema)
 
 export default User
