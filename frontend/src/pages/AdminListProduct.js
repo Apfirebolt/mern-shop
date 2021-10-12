@@ -1,12 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
-import Loader from '../components/Loader'
+import ConfirmModal from '../components/modals/ConfirmModal'
+import Loader from '../components/common/Loader'
 import { listProducts, deleteProduct } from '../actions/productActions'
 
 const AdminListUser = ({ history }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const showDeleteModal = () => {
+    setShowModal(true)
+  }
+  const hideDeleteModal = () => {
+    setShowModal(false)
+  }
+  const deleteHelper = (productId) => {
+    setSelectedProductId(productId)
+    showDeleteModal()
+  }
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
@@ -27,14 +40,20 @@ const AdminListUser = ({ history }) => {
   }, [dispatch, history, successDelete, userInfo])
   
   const deleteHandler = (id) => {
-    if (window.confirm('Are you sure you want to delete this product ?')) {
-      dispatch(deleteProduct(id))
-    }
+    dispatch(deleteProduct(id))
+    hideDeleteModal()
   }
 
   return (
     <>
       <h1>Products</h1>
+      <ConfirmModal 
+        showModalFunction={showDeleteModal}
+        hideModalFunction={hideDeleteModal}
+        showModal={showModal}
+        deleteProduct={deleteHandler}
+        productId={selectedProductId}
+      />
       {loading ? (
         <Loader />
       ) : error ? (
@@ -62,7 +81,7 @@ const AdminListUser = ({ history }) => {
                   <Button
                     variant='danger'
                     className='btn-sm m-1'
-                    onClick={() => deleteHandler(product._id)}
+                    onClick={() => deleteHelper(product._id)}
                   >
                     Delete
                     <i className='fas fa-trash'></i>

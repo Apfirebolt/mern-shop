@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import Message from '../components/Message'
-import Loader from '../components/Loader'
+import Loader from '../components/common/Loader'
 import Meta from '../components/Meta'
 import {
   listProductDetails,

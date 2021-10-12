@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
-import Loader from '../components/Loader'
+import Loader from '../components/common/Loader'
 import Paginate from '../components/Paginate'
 import { listProducts } from '../actions/productActions'
 
@@ -23,7 +23,7 @@ const HomePage = ({ match }) => {
 
   return (
     <>
-      <h1>Latest Products</h1>
+      <h1>Latest Games</h1>
       {loading ? (
         <Loader />
       ) : error ? (

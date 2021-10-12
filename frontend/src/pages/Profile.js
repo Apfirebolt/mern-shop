@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row } from 'react-bootstrap'
 import Message from '../components/Message'
-import Loader from '../components/Loader'
+import Loader from '../components/common/Loader'
 import { getProfile } from '../actions/userActions'
 
 const ProfilePage = () => {

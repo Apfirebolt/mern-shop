@@ -1,12 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import ConfirmDeleteModal from '../components/modals/ConfirmDeleteUser'
 import Message from '../components/Message'
-import Loader from '../components/Loader'
+import Loader from '../components/common/Loader'
 import { listUsers, deleteUser } from '../actions/userActions'
 
 const AdminListUser = ({ history }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const showDeleteModal = () => {
+    setShowModal(true)
+  }
+  const hideDeleteModal = () => {
+    setShowModal(false)
+  }
+  const deleteHelper = (userId) => {
+    setSelectedUserId(userId)
+    showDeleteModal()
+  }
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
@@ -27,14 +40,20 @@ const AdminListUser = ({ history }) => {
   }, [dispatch, history, successDelete, userInfo])
   
   const deleteHandler = (id) => {
-    if (window.confirm('Are you sure you want to delete this user ?')) {
-      dispatch(deleteUser(id))
-    }
+    dispatch(deleteUser(id))
+    hideDeleteModal()
   }
 
   return (
     <>
       <h1>Users</h1>
+      <ConfirmDeleteModal 
+        showModalFunction={showDeleteModal}
+        hideModalFunction={hideDeleteModal}
+        showModal={showModal}
+        deleteUser={deleteHandler}
+        userId={selectedUserId}
+      />
       {loading ? (
         <Loader />
       ) : error ? (
@@ -77,7 +96,7 @@ const AdminListUser = ({ history }) => {
                   <Button
                     variant='danger'
                     className='btn-sm m-1'
-                    onClick={() => deleteHandler(user._id)}
+                    onClick={() => deleteHelper(user._id)}
                   >
                     Delete
                     <i className='fas fa-trash'></i>
