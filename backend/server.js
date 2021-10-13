@@ -45,8 +45,14 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
+app.use(function (req, res, next) {
+  console.log('Application level middleware Time:', Date.now())
+  next()
+})
+
 app.use(notFound)
 app.use(errorHandler)
+
 
 const PORT = process.env.PORT || 5000
 

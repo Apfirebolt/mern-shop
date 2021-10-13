@@ -3,15 +3,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/common/Loader";
-import FormContainer from "../components/FormContainer";
-import { createProduct } from "../actions/productActions";
-import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
+import Message from "../../components/Message";
+import Loader from "../../components/common/Loader";
+import FormContainer from "../../components/FormContainer";
+import { listProductDetails, updateProduct } from "../../actions/productActions";
+import { PRODUCT_UPDATE_RESET } from "../../constants/productConstants";
 
-const AdminAddProduct = ({ match, history }) => {
+const AdminUpdateProduct = ({ match, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const productId = match.params.id;
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -24,22 +26,37 @@ const AdminAddProduct = ({ match, history }) => {
 
   const dispatch = useDispatch();
 
-  const productCreate = useSelector((state) => state.productCreate);
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
+
+  const productUpdate = useSelector((state) => state.productUpdate);
   const {
-    loading: loadingAdd,
-    error: errorAdd,
-    success: successCreate,
-  } = productCreate;
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate;
 
   useEffect(() => {
     if (userInfo && !userInfo.isAdmin) {
       history.push("/");
     }
-    if (successCreate) {
-      dispatch({ type: PRODUCT_CREATE_RESET });
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET });
       history.push("/admin/products");
+    } else {
+      if (!product.name || product._id !== productId) {
+        dispatch(listProductDetails(productId));
+      } else {
+        setName(product.name);
+        setPrice(product.price);
+        setImage(product.image);
+        setBrand(product.brand);
+        setCategory(product.category);
+        setCountInStock(product.countInStock);
+        setDescription(product.description);
+      }
     }
-  }, [dispatch, history, successCreate, userInfo]);
+  }, [dispatch, history, productId, product, successUpdate, userInfo]);
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
@@ -54,7 +71,8 @@ const AdminAddProduct = ({ match, history }) => {
         },
       };
 
-      const { data } = await axios.post("/api/upload", formData, config)
+      const { data } = await axios.post("/api/upload", formData, config);
+
       setImage(data.replace('/uploads\\', ''));
       setUploading(false);
     } catch (error) {
@@ -64,9 +82,10 @@ const AdminAddProduct = ({ match, history }) => {
   };
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(
-      createProduct({
+      updateProduct({
+        _id: productId,
         name,
         price,
         image,
@@ -75,7 +94,7 @@ const AdminAddProduct = ({ match, history }) => {
         description,
         countInStock,
       })
-    )
+    );
   };
 
   return (
@@ -84,13 +103,13 @@ const AdminAddProduct = ({ match, history }) => {
         Go Back
       </Link>
       <FormContainer>
-        <h1>Add Product</h1>
-        {loadingAdd && <Loader />}
-        {errorAdd && <Message variant="danger">{errorAdd}</Message>}
-        {loadingAdd ? (
+        <h1>Edit Product</h1>
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
+        {loading ? (
           <Loader />
-        ) : errorAdd ? (
-          <Message variant="danger">{errorAdd}</Message>
+        ) : error ? (
+          <Message variant="danger">{error}</Message>
         ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="name">
@@ -172,7 +191,7 @@ const AdminAddProduct = ({ match, history }) => {
 
             <div className="d-flex justify-content-center my-3">
               <Button type="submit" variant="primary">
-                Add Product
+                Update
               </Button>
             </div>
           </Form>
@@ -182,4 +201,4 @@ const AdminAddProduct = ({ match, history }) => {
   );
 };
 
-export default AdminAddProduct;
+export default AdminUpdateProduct;

@@ -4,6 +4,11 @@ const notFound = (req, res, next) => {
   next(error)
 }
 
+const sampleMiddleware = (req, res, next) => {
+  console.log('Running sample middleware')
+  next()
+}
+
 const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode
   res.status(statusCode)
@@ -13,4 +18,4 @@ const errorHandler = (err, req, res, next) => {
   })
 }
 
-export { notFound, errorHandler }
+export { notFound, sampleMiddleware, errorHandler }
