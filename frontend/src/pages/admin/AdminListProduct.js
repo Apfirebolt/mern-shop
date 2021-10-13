@@ -82,7 +82,7 @@ const AdminListUser = ({ history }) => {
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
-      ) : (
+      ) : products.length ? (
         <Fragment>
           <Table striped bordered hover responsive className='table-sm'>
             <thead>
@@ -123,7 +123,7 @@ const AdminListUser = ({ history }) => {
             decrementPage={decrementPage}
           />
         </Fragment>
-      )}
+      ) : <p className="bg-danger text-center text-white p-3">No products found</p>}
     </>
   )
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -12,7 +12,7 @@ const AdminAddUser = ({ history }) => {
   const { userInfo } = userLogin
 
   const { register, handleSubmit, getValues, formState: { errors } } = useForm();
-  const onSubmit = data => dispatch(adminUserAdd(data.name, data.email, data.password));
+  const onSubmit = data => dispatch(adminUserAdd(data));
 
   const dispatch = useDispatch();
   
@@ -31,6 +31,7 @@ const AdminAddUser = ({ history }) => {
     <>
       <h2>Add User</h2>
       <FormContainer>
+        
         {error && <Message variant="danger">{error}</Message>}
         {loading && <Loader />}
         <Form onSubmit={handleSubmit(onSubmit)}>

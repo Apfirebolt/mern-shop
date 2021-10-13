@@ -6,7 +6,6 @@ import Footer from './components/common/Footer'
 import HomePage from './pages/Home'
 import LoginPage from './pages/Login'
 import RegisterPage from './pages/Register'
-import TestPage from './pages/Test'
 import CartPage from './pages/Cart'
 import UserListPage from './pages/admin/AdminListUser'
 import UserCreatePage from './pages/admin/AdminAddUser'
@@ -44,7 +43,6 @@ const App = () => {
             component={HomePage}
             exact
           />
-          <Route path='/test' component={TestPage} />
         </Container>
       </main>
       <Footer />
